@@ -29,7 +29,7 @@ console.log(user)
 
   useEffect(()=>{
     if(isAuthenticated){
-      setMenuItems([...menuItemsInitialValue,{label:"Dashboard",path:user==='admin@test.com'?"/admin":"/dashboard"}])
+      setMenuItems([...menuItemsInitialValue,{label:"Dashboard",path:user==='admin@test.com'?"/admin":"/admin"}])
     }else{
       setMenuItems(menuItemsInitialValue)
     }
