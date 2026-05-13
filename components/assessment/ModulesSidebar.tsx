@@ -1,9 +1,19 @@
 import { Paper, Typography, Box } from "@mui/material";
 
+type AssessmentModule = {
+  id: string;
+  name: string;
+  questions: { id: number; text: string; options: string[] }[];
+};
+
 export default function ModulesSidebar({
   modules,
   activeModule,
   onSelect,
+}: {
+  modules: AssessmentModule[];
+  activeModule: AssessmentModule;
+  onSelect: (module: AssessmentModule) => void;
 }) {
   return (
     <Paper sx={{ p: 2, mb: 2 }}>

@@ -588,8 +588,8 @@ export default function AdminDashboardCandidateList() {
         onClose={closeDialog}
         fullWidth
         maxWidth="sm"
-        PaperProps={{
-          sx: { borderRadius: 3, boxShadow: "0 8px 40px rgba(0,0,0,0.12)" },
+        slotProps={{
+          paper: { sx: { borderRadius: 3, boxShadow: "0 8px 40px rgba(0,0,0,0.12)" } },
         }}
       >
         {/* Dialog Header */}
@@ -626,7 +626,7 @@ export default function AdminDashboardCandidateList() {
             onBlur={() => handleBlur("name")}
             error={touched.name && !!errors.name}
             helperText={touched.name && errors.name}
-            InputProps={{ sx: { borderRadius: 1.5 } }}
+            slotProps={{ input: { sx: { borderRadius: 1.5 } } }}
           />
 
           {/* Email */}
@@ -642,7 +642,7 @@ export default function AdminDashboardCandidateList() {
             onBlur={() => handleBlur("email")}
             error={touched.email && !!errors.email}
             helperText={touched.email && errors.email}
-            InputProps={{ sx: { borderRadius: 1.5 } }}
+            slotProps={{ input: { sx: { borderRadius: 1.5 } } }}
           />
 
           {/* Experience */}
@@ -661,8 +661,7 @@ export default function AdminDashboardCandidateList() {
               (touched.experience && errors.experience) ||
               "Enter total years — tier will be assigned automatically."
             }
-            inputProps={{ min: 0, step: 1 }}
-            InputProps={{ sx: { borderRadius: 1.5 } }}
+            slotProps={{ htmlInput: { min: 0, step: 1 }, input: { sx: { borderRadius: 1.5 } } }}
           />
 
           {/* Resume upload */}

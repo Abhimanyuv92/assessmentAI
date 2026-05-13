@@ -26,7 +26,6 @@ import {
 import {
   ArrowBack,
   ArrowForward,
-  CheckCircleOutline,
   FileUploadOutlined,
   InsertDriveFileOutlined,
   Close,
@@ -38,15 +37,40 @@ import {
 } from "@mui/icons-material";
 import { useSnackbarStore } from "@/lib/snackbarStore";
 
+// ─── Types ────────────────────────────────────────────────────────────────────
+
+interface Page1Form {
+  name: string;
+  email: string;
+  experience: string;
+  resume: File | null;
+}
+
+interface Page1Errors {
+  name?: string;
+  email?: string;
+  experience?: string;
+  resume?: string;
+}
+
+interface CandidateData {
+  name: string;
+  email: string;
+  exp: number;
+  tier: string;
+  expLabel: string;
+  resume: File;
+}
+
 // ─── Helpers ──────────────────────────────────────────────────────────────────
 
-function fmtBytes(b) {
+function fmtBytes(b:any) {
   if (b < 1024) return b + " B";
   if (b < 1048576) return (b / 1024).toFixed(1) + " KB";
   return (b / 1048576).toFixed(1) + " MB";
 }
 
-function getTier(y) {
+function getTier(y:any) {
   if (y === 0) return "Fresher";
   if (y <= 3) return "Junior";
   if (y <= 5) return "Senior";
@@ -55,7 +79,7 @@ function getTier(y) {
   return "Leadership";
 }
 
-function getExpLabel(y) {
+function getExpLabel(y:any) {
   if (y <= 3) return "0–3 yrs";
   if (y <= 5) return "3–5 yrs";
   if (y <= 7) return "5–7 yrs";
@@ -113,11 +137,11 @@ const WEIGHTS = ["40%", "25%", "25%", "10%"];
 
 // ─── Resume Upload ─────────────────────────────────────────────────────────────
 
-function ResumeUpload({ file, error, onChange }) {
-  const inputRef = useRef(null);
+function ResumeUpload({ file, error, onChange }:any) {
+  const inputRef = useRef<HTMLInputElement>(null);
   const [dragging, setDragging] = useState(false);
 
-  const handleDrop = (e) => {
+  const handleDrop = (e:any) => {
     e.preventDefault();
     setDragging(false);
     const f = e.dataTransfer.files?.[0] ?? null;
@@ -205,13 +229,13 @@ function ResumeUpload({ file, error, onChange }) {
 
 // ─── Page 1 ───────────────────────────────────────────────────────────────────
 
-function Page1({ onNext }) {
-  const [form, setForm] = useState({ name: "", email: "", experience: "", resume: null });
-  const [errors, setErrors] = useState({});
-  const [touched, setTouched] = useState({});
+function Page1({ onNext }:any) {
+  const [form, setForm] = useState<Page1Form>({ name: "", email: "", experience: "", resume: null });
+  const [errors, setErrors] = useState<Page1Errors>({});
+  const [touched, setTouched] = useState<Partial<Record<keyof Page1Form, boolean>>>({});
 
-  const validate = (f) => {
-    const e = {};
+  const validate = (f: Page1Form): Page1Errors => {
+    const e: Page1Errors = {};
     if (!f.name.trim()) e.name = "Name is required.";
     else if (f.name.trim().length < 2) e.name = "Name must be at least 2 characters.";
     if (!f.email.trim()) e.email = "Email is required.";
@@ -224,13 +248,13 @@ function Page1({ onNext }) {
     return e;
   };
 
-  const change = (field, val) => {
-    const updated = { ...form, [field]: val };
+  const change = (field: keyof Page1Form, val: string | File | null) => {
+    const updated = { ...form, [field]: val } as Page1Form;
     setForm(updated);
     if (touched[field]) setErrors((prev) => ({ ...prev, [field]: validate(updated)[field] }));
   };
 
-  const blur = (field) => {
+  const blur = (field: keyof Page1Form) => {
     setTouched((p) => ({ ...p, [field]: true }));
     setErrors((p) => ({ ...p, [field]: validate(form)[field] }));
   };
@@ -294,14 +318,14 @@ function Page1({ onNext }) {
           (touched.experience && errors.experience) ||
           "Enter total years — tier will be assigned automatically."
         }
-        inputProps={{ min: 0, step: 1 }}
+        slotProps={{ htmlInput: { min: 0, step: 1 } }}
         sx={{ mb: 2.5 }}
       />
 
       <ResumeUpload
         file={form.resume}
         error={touched.resume ? errors.resume : undefined}
-        onChange={(f) => { change("resume", f); setTouched((p) => ({ ...p, resume: true })); }}
+        onChange={(f: File | null) => { change("resume", f); setTouched((p) => ({ ...p, resume: true })); }}
       />
 
       <Box sx={{ display: "flex", justifyContent: "flex-end", mt: 3 }}>
@@ -327,7 +351,13 @@ function Page1({ onNext }) {
 
 // ─── Page 2 ───────────────────────────────────────────────────────────────────
 
-function Page2({ data, onBack, onSend, onSendLater, sending }) {
+function Page2({ data, onBack, onSend, onSendLater, sending }: {
+  data: CandidateData;
+  onBack: () => void;
+  onSend: () => void;
+  onSendLater: () => void;
+  sending: boolean;
+}) {
   return (
     <Box sx={{ display: "flex", flexDirection: "column", gap: 1.75 }}>
 
@@ -542,13 +572,13 @@ function Page2({ data, onBack, onSend, onSendLater, sending }) {
 
 export default function CandidateWizard() {
   const [step, setStep] = useState(0); // MUI Stepper is 0-indexed
-  const [candidateData, setCandidateData] = useState(null);
+  const [candidateData, setCandidateData] = useState<CandidateData | null>(null);
   const [sending, setSending] = useState(false);
     const showSnackbar = useSnackbarStore((state) => state.showSnackbar);
   
 
   
-  const handleNext = (data) => {
+  const handleNext = (data:any) => {
     setCandidateData(data);
     setStep(1);
   };
@@ -560,13 +590,13 @@ export default function CandidateWizard() {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
-          name: candidateData.name,
-          email: candidateData.email,
-          tier: candidateData.tier,
-          experience: candidateData.expLabel,
+          name: candidateData?.name,
+          email: candidateData?.email,
+          tier: candidateData?.tier,
+          experience: candidateData?.expLabel,
         }),
       });
-      showSnackbar(`Test link sent to ${candidateData.email}`, "success");
+      showSnackbar(`Test link sent to ${candidateData?.email}`, "success");
       setStep(0)
     } catch {
       showSnackbar("Failed to send email. Please try again.", "error");
@@ -598,10 +628,12 @@ export default function CandidateWizard() {
           {["Candidate info", "Review & send"].map((label, i) => (
             <Step key={label} completed={step > i}>
               <StepLabel
-                StepIconProps={{
-                  sx: {
-                    "&.Mui-completed": { color: "#0F63FF" },
-                    "&.Mui-active": { color: "#0F63FF" },
+                slotProps={{
+                  stepIcon: {
+                    sx: {
+                      "&.Mui-completed": { color: "#0F63FF" },
+                      "&.Mui-active": { color: "#0F63FF" },
+                    },
                   },
                 }}
                 sx={{

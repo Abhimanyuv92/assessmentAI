@@ -1,13 +1,10 @@
-import { useAssessmentStore } from "@/lib/useAssessmentStore";
+import useAssessmentEngine from "./useAssessmentEngine";
 import { Tabs, Tab, Box } from "@mui/material";
 import { assessmentModules } from "./assessmentData";
 
 export default function ModuleTabs() {
-  const { currentIndex, questions, jumpToModule } =
-    useAssessmentStore() as any;
-
-  const activeModule =
-    questions[currentIndex].moduleId;
+  const engine = useAssessmentEngine();
+  const activeModule = engine.currentModule.id;
 
   return (
     <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
@@ -15,9 +12,9 @@ export default function ModuleTabs() {
         {assessmentModules.map((module) => (
           <Tab
             key={module.id}
-            label={module.title}
+            label={module.name}
             value={module.id}
-            onClick={() => jumpToModule(module.id)}
+            onClick={() => engine.goToModule(module)}
           />
         ))}
       </Tabs>

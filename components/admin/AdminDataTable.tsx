@@ -222,14 +222,14 @@ export default function AdminDataTable({ selectedCandidateId, onRowSelect }: Adm
         <Table sx={{ borderCollapse: "collapse" }}>
           <TableHead>
             <TableRow sx={{ backgroundColor: "rgba(255, 214, 0, 0.05)", borderBottom: "1px solid", borderColor: "divider" }} >
-              <TableCell sx={{ padding: "7px 10px", color: "text.secondary", fontWeight: 500 }}>
+              {/* <TableCell sx={{ padding: "7px 10px", color: "text.secondary", fontWeight: 500 }}>
                 <Checkbox
                   size="small"
                   checked={selected.length === candidates.length}
                   indeterminate={selected.length > 0 && selected.length < candidates.length}
                   onChange={(e) => handleSelectAll(e.target.checked)}
                 />
-              </TableCell>
+              </TableCell> */}
               <TableCell sx={{ padding: "7px 10px", color: "text.secondary", fontWeight: 500 }}>
                 Candidate
               </TableCell>
@@ -265,7 +265,7 @@ export default function AdminDataTable({ selectedCandidateId, onRowSelect }: Adm
                 }}
                 onClick={() => onRowSelect && onRowSelect(candidate)}
               >
-                <TableCell sx={{ padding: "8px 10px", borderBottom: "1px solid", borderColor: "rgba(255, 255, 255, 0.12)" }}>
+                {/* <TableCell sx={{ padding: "8px 10px", borderBottom: "1px solid", borderColor: "rgba(255, 255, 255, 0.12)" }}>
                   <Checkbox
                     size="small"
                     checked={selected.includes(candidate.id)}
@@ -274,7 +274,7 @@ export default function AdminDataTable({ selectedCandidateId, onRowSelect }: Adm
                       handleSelect(candidate.id);
                     }}
                   />
-                </TableCell>
+                </TableCell> */}
                 <TableCell sx={{ padding: "8px 10px", borderBottom: "1px solid", borderColor: "rgba(255, 255, 255, 0.12)", color: "text.primary", verticalAlign: "middle" }}>
                   <Box sx={{ display: "flex", alignItems: "center", gap: "8px" }}>
                     <Avatar sx={{ width: 26, height: 26, fontWeight: 500, fontSize: "14px" }}>
@@ -311,7 +311,7 @@ export default function AdminDataTable({ selectedCandidateId, onRowSelect }: Adm
                         {getScoreBar(value)}
                       </Box>
                     ))} */}
-                    {Object.values(candidate.modules).filter((v): v => v && v>0).length}/4
+                    {Object.values(candidate.modules).filter((v) => v && v > 0).length}/4
 
                   </Box>
                 </TableCell>
@@ -345,7 +345,7 @@ export default function AdminDataTable({ selectedCandidateId, onRowSelect }: Adm
 
       {/* Footer */}
       <Box sx={{ padding: "8px 14px", borderTop: "1px solid", borderColor: "divider", display: "flex", alignItems: "center", justifyContent: "space-between", color: "text.secondary" }}>
-        <Typography>Showing 1–{filteredCandidates.length} of {candidates.length} candidates</Typography>
+        <Typography>{filteredCandidates.length} of {candidates.length} candidates</Typography>
         {/* <Box sx={{ display: "flex", gap: "4px" }}>
           {[1, 2, 3].map((page) => (
             <Button

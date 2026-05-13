@@ -34,7 +34,7 @@ export default function useAssessmentEngine() {
     );
   };
 
-  const goToModule = (module) => {
+  const goToModule = (module: { id: string }) => {
     const index = flatQuestions.findIndex(
       (q) => q.module.id === module.id
     );

@@ -7,17 +7,17 @@ export default function CandidateInfo() {
         CANDIDATE INFO
       </Typography>
 
-      <Box display="flex" alignItems="center" gap={2} mt={2}>
+      <Box sx={{ display: "flex", alignItems: "center", gap: 2, mt: 2 }}>
         <Avatar>RS</Avatar>
         <Box>
-          <Typography fontWeight={600}>Rohan Sinha</Typography>
+          <Typography sx={{ fontWeight: 600 }}>Rohan Sinha</Typography>
           <Typography variant="caption">
             Senior · Engineering
           </Typography>
         </Box>
       </Box>
 
-      <Typography mt={2} variant="caption">
+      <Typography sx={{ mt: 2 }} variant="caption">
         Session progress
       </Typography>
 

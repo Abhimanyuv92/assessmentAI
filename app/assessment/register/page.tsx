@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { Suspense, useEffect, useRef, useState } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import {
   Alert,
@@ -395,7 +395,7 @@ function RegistrationScreen({
           onBlur={() => onBlur("experience")}
           error={touched.experience && !!errors.experience}
           helperText={touched.experience && errors.experience}
-          inputProps={{ min: 0, step: 1 }}
+          // inputProps={{ min: 0, step: 1 }}
         />
 
         <Divider />
@@ -772,7 +772,7 @@ function InstructionsScreen({
 
 // ─── Root ──────────────────────────────────────────────────────────────────────
 
-export default function CandidateRegistrationPage() {
+function CandidateRegistrationPage() {
   const router = useRouter();
   const params = useSearchParams();
 
@@ -887,5 +887,13 @@ export default function CandidateRegistrationPage() {
         )}
       </Box>
     </Box>
+  );
+}
+
+export default function Page() {
+  return (
+    <Suspense>
+      <CandidateRegistrationPage />
+    </Suspense>
   );
 }

@@ -54,8 +54,11 @@ import {
   Box,
   LinearProgress,
 } from "@mui/material";
+import useAssessmentEngine from "./useAssessmentEngine";
 
-export default function AssessmentHeader({ engine }) {
+type AssessmentEngine = ReturnType<typeof useAssessmentEngine>;
+
+export default function AssessmentHeader({ engine }: { engine: AssessmentEngine }) {
   return (
     <>
       <AppBar position="static" color="inherit" elevation={1}>

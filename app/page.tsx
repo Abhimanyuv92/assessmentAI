@@ -286,7 +286,7 @@ export default function Home() {
             }}
           >
             <Typography sx={{ color: "#B0B8D1" }}>
-              © 2024 Nexon AI. All rights reserved.
+              © 2026 Nexon AI. All rights reserved.
             </Typography>
             <Stack direction="row" spacing={3}>
               <Button

@@ -76,7 +76,7 @@ export default function AssessmentPage({selectedModule}:{selectedModule?:string}
         <Grid size={{ xs: 12, md: 3 }}>
           <ModulesSidebar
             modules={engine.modules}
-            activeModule={selectedModule ? selectedModule :engine.currentModule}
+            activeModule={selectedModule ? (engine.modules.find((m) => m.id === selectedModule) ?? engine.currentModule) : engine.currentModule}
             onSelect={engine.goToModule}
           />
 

@@ -47,8 +47,11 @@ import {
 } from "@mui/material";
 
 import OptionItem from "./OptionItem";
+import useAssessmentEngine from "./useAssessmentEngine";
 
-export default function QuestionCard({ engine }) {
+type AssessmentEngine = ReturnType<typeof useAssessmentEngine>;
+
+export default function QuestionCard({ engine }: { engine: AssessmentEngine }) {
 
   const q = engine.currentQuestion;
 
@@ -71,12 +74,12 @@ export default function QuestionCard({ engine }) {
       </Typography>
 
       <Box sx={{ display: "flex", flexDirection: "column", gap: 2 }}>
-        <RadioGroup name={q.id}>
+        <RadioGroup name={String(q.id)}>
           {q.options.map((opt, i) => (
             <OptionItem
               key={i}
               label={opt}
-              questionId={q.id}
+              questionId={String(q.id)}
             />
           ))}
         </RadioGroup>

@@ -1,16 +1,11 @@
-import { useAssessmentStore } from "@/lib/useAssessmentStore";
+import useAssessmentEngine from "./useAssessmentEngine";
 import { Box, Button } from "@mui/material";
 
 export default function NavigationBar() {
-  const {
-    nextQuestion,
-    prevQuestion,
-    currentIndex,
-    questions,
-  } = useAssessmentStore();
+  const engine = useAssessmentEngine();
+  const { nextQuestion, prevQuestion, currentIndex, totalQuestions } = engine;
 
-  const isLast =
-    currentIndex === questions.length - 1;
+  const isLast = currentIndex === totalQuestions - 1;
 
   return (
     <Box
@@ -20,9 +15,7 @@ export default function NavigationBar() {
         mt: 3,
       }}
     >
-      <Button onClick={prevQuestion}>
-        Previous
-      </Button>
+      <Button onClick={prevQuestion}>Previous</Button>
 
       <Button
         variant="contained"

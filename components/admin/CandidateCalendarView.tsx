@@ -210,7 +210,7 @@ function DayDialog({ open, date, candidates, onClose }: DayDialogProps) {
       onClose={onClose}
       maxWidth="md"
       fullWidth
-      PaperProps={{ sx: { borderRadius: 3, overflow: "hidden" } }}
+      slotProps={{ paper: { sx: { borderRadius: 3, overflow: "hidden" } } }}
     >
       {/* Header */}
       <DialogTitle
@@ -277,7 +277,7 @@ function DayDialog({ open, date, candidates, onClose }: DayDialogProps) {
             >
               <PersonOutlined sx={{ fontSize: 26, color: "text.disabled" }} />
             </Box>
-            <Typography color="text.secondary" fontSize={14}>
+            <Typography color="text.secondary" sx={{ fontSize: 14 }}>
               No candidates registered on this day
             </Typography>
           </Box>

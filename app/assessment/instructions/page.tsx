@@ -3,7 +3,7 @@
 // app/assessment/instructions/page.tsx
 // Route: /assessment/instructions?token=<base64url>
 
-import { useState } from "react";
+import { Suspense, useState } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import {
   Alert,
@@ -88,7 +88,7 @@ const SCORE_DEDUCTIONS = [
 
 // ─── Page component ────────────────────────────────────────────────────────────
 
-export default function AssessmentInstructionsPage() {
+function AssessmentInstructionsPage() {
   const router = useRouter();
   const params = useSearchParams();
   const [acknowledged, setAcknowledged] = useState(false);
@@ -305,5 +305,13 @@ export default function AssessmentInstructionsPage() {
 
       </Box>
     </Box>
+  );
+}
+
+export default function Page() {
+  return (
+    <Suspense>
+      <AssessmentInstructionsPage />
+    </Suspense>
   );
 }

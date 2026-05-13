@@ -602,7 +602,7 @@ export default function RecruiterDashboard() {
           <Box sx={{ width: 8, height: 8, borderRadius: "50%", bgcolor: "#3B6D11", animation: "pulse 2s infinite", "@keyframes pulse": { "0%,100%": { opacity: 1 }, "50%": { opacity: 0.4 } } }} />
           <Typography sx={{ fontSize: 12, color: "text.secondary" }}>Live</Typography>
         </Box>
-        <Box sx={{ display: "flex", gap: 1 }}>
+        {/* <Box sx={{ display: "flex", gap: 1 }}>
           <Button
             variant="outlined"
             size="small"
@@ -620,7 +620,7 @@ export default function RecruiterDashboard() {
           >
             New candidate
           </Button>
-        </Box>
+        </Box> */}
       </Box>
 
       {/* KPI strip */}

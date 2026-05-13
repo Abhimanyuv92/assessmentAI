@@ -7,7 +7,7 @@ export default function TimerCard() {
         TIME ELAPSED
       </Typography>
 
-      <Typography fontSize={28} fontWeight={700} mt={1}>
+      <Typography sx={{ fontSize: 28, fontWeight: 700, mt: 1 }}>
         02:34
       </Typography>
 

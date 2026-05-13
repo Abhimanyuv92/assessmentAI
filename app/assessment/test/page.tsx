@@ -1379,7 +1379,7 @@
 // }   
 "use client";
 
-import { useCallback, useEffect, useRef, useState } from "react";
+import { Suspense, useCallback, useEffect, useRef, useState } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import {
   Alert,
@@ -2272,7 +2272,7 @@ function ResultsScreen({
             startIcon={submitting ? <CircularProgress size={16} sx={{ color: "#fff" }} /> : <Send size={16} />}
             sx={{ textTransform: "none", borderRadius: 2, fontWeight: 600, fontSize: 15, py: 1.4 }}
           >
-            {submitting ? "Sending to HR…" : "Submit results to HR"}
+            {submitting ? "Sending…" : "Submit results "}
           </Button>
           <Typography sx={{ textAlign: "center", mt: 1.5, fontSize: 12, color: "text.disabled" }}>
             Results will be sent to the HR team at your organisation.
@@ -2285,7 +2285,7 @@ function ResultsScreen({
 
 // ─── Main Component ───────────────────────────────────────────────────────────
 
-export default function AssessmentPage() {
+function AssessmentPage() {
   const params = useSearchParams();
   const router = useRouter();
 
@@ -2802,7 +2802,7 @@ export default function AssessmentPage() {
       </Box>
 
       {/* Violation dialog */}
-      <Dialog open={violationDialog} onClose={() => setViolationDialog(false)} PaperProps={{ sx: { borderRadius: 3, maxWidth: 380 } }}>
+      <Dialog open={violationDialog} onClose={() => setViolationDialog(false)}>
         <DialogTitle sx={{ display: "flex", alignItems: "center", gap: 1, pb: 1 }}>
           <AlertTriangle size={18} color="#D32F2F" />
           Proctoring Violation
@@ -2836,5 +2836,13 @@ export default function AssessmentPage() {
         </DialogActions>
       </Dialog>
     </Box>
+  );
+}
+
+export default function Page() {
+  return (
+    <Suspense>
+      <AssessmentPage />
+    </Suspense>
   );
 }
